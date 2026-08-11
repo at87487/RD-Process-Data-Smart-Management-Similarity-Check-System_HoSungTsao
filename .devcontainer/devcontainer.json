@@ -2,7 +2,6 @@
   "name": "R&D Experiment Data Smart Management System",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
   
-  // 1. 自動把 Gradio 的 Port 轉發出來，並直接設定為公開（Public）
   "forwardPorts": [7860],
   "portsAttributes": {
     "7860": {
@@ -12,9 +11,17 @@
     }
   },
 
-  // 2. 核心修正：強制安裝全面支援 Python 3.12 且重寫模板引擎的 gradio 最新版，徹底甩開 jinja2 的錯誤
-  "postCreateCommand": "pip install --upgrade pip && pip install --upgrade gradio pandas numpy matplotlib",
+  // 清洗並安裝正確套件
+  "postCreateCommand": "rm -rf venv && python -m venv venv && ./venv/bin/pip install --upgrade pip && ./venv/bin/pip install gradio pandas numpy matplotlib",
 
-  // 3. 每次 Codespace 啟動時自動跑程式
-  "postStartCommand": "python app.py"
+  // ❌ 刪除原本的 postStartCommand 背景執行
+  // ⭕ 改用 settings：讓終端機一打開就自動進入虛擬環境，並把右上角的「播放按鈕」修正為使用虛擬環境
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/venv/bin/python",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
 }
