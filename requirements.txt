@@ -2,3 +2,4 @@ gradio==4.44.0
 matplotlib
 pandas
 numpy
+huggingface_hub==0.20.3
