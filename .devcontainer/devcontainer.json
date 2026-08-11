@@ -1,0 +1,20 @@
+{
+  "name": "R&D Experiment Data Smart Management System",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  
+  // 1. 自動把 Gradio 的 Port 轉發出來，並直接設定為公開（Public），免去手動右鍵調整
+  "forwardPorts": [7860],
+  "portsAttributes": {
+    "7860": {
+      "label": "Gradio App",
+      "onAutoForward": "openBrowser",
+      "visibility": "public"
+    }
+  },
+
+  // 2. 當 Codespace 建立完成後，自動在背景跑完所有套件安裝
+  "postCreateCommand": "pip install --upgrade pip && pip install gradio matplotlib pandas numpy huggingface_hub==0.20.3",
+
+  // 3. 核心關鍵：每次 Codespace 「一打開/啟動時」，自動開一個終端機分頁並執行程式
+  "postStartCommand": "python app.py"
+}
