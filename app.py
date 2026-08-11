@@ -238,6 +238,5 @@ with gr.Blocks(theme=gr.themes.Soft(primary_hue="emerald"), title="研發實驗�
     btn_compare.click(execute_similarity_check, inputs=[tpl_selector, data_table], outputs=[md_analysis_report, chart_output])
 
 if __name__ == "__main__":
-    # ❌ 移除 share=True，徹底阻斷 gradio 呼叫 huggingface_hub 的 Bug 程式碼
-    # ⭕ 綁定 Codespaces 容器內網並指定預設埠口
+    # server_name 必須是 0.0.0.0，Codespace 才能捕捉到流量並成功轉發網址
     demo.launch(server_name="0.0.0.0", server_port=7860)
